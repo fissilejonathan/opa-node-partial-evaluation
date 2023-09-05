@@ -2,60 +2,6 @@ CREATE DATABASE IF NOT EXISTS learning_hub;
 
 USE learning_hub;
 
-
-
-CREATE TABLE IF NOT EXISTS users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL
-);
-
-INSERT INTO users (username, email)
-VALUES
-    ('user1', 'user1@example.com'),
-    ('user2', 'user2@example.com'),
-    ('user3', 'user3@example.com');
-
-
-
-CREATE TABLE IF NOT EXISTS user_access (
-    access_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    course_id INT,
-    module_id INT,
-    lesson_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (course_id) REFERENCES courses(course_id),
-    FOREIGN KEY (module_id) REFERENCES modules(module_id),
-    FOREIGN KEY (lesson_id) REFERENCES lessons(lesson_id)
-);
-
--- Grant user access to all modules and lessons in Course 1
-INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
-VALUES (1, 1, NULL, NULL);
-
--- Grant user access to all modules and lessons in Course 2
-INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
-VALUES (2, 2, NULL, NULL);
-
--- Grant user access to all modules and lessons in Course 1
-INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
-VALUES (3, 1, NULL, NULL);
-
--- Grant user access to all modules and lessons in Course 2
-INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
-VALUES (3, 2, NULL, NULL);
-
--- Grant user access to Module 2 and all its lessons in Course 1
-INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
-VALUES (4, 1, 2, NULL);
-
--- Grant user access to Lesson 3 in Module 1 of Course 2
-INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
-VALUES (5, 2, 1, 3);
-
-
-
 CREATE TABLE IF NOT EXISTS courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(255) NOT NULL,
@@ -104,3 +50,63 @@ VALUES
     ('HTML Structure', 'Basic HTML document structure.', 3),
     ('CSS Styling', 'Introduction to CSS for styling web pages.', 3),
     ('JavaScript Variables', 'Declaring and using variables in JavaScript.', 4);
+
+
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
+
+INSERT INTO users (username, email)
+VALUES
+    ('user1', 'user1@example.com'),
+    ('user2', 'user2@example.com'),
+    ('user3', 'user3@example.com');
+
+
+
+CREATE TABLE IF NOT EXISTS user_access (
+    access_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    course_id INT,
+    module_id INT,
+    lesson_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id),
+    FOREIGN KEY (module_id) REFERENCES modules(module_id),
+    FOREIGN KEY (lesson_id) REFERENCES lessons(lesson_id)
+);
+
+-- Grant user access to all modules and lessons in Course 1
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (1, 1, NULL, NULL);
+
+-- Grant user access to all modules and lessons in Course 2
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (2, 2, NULL, NULL);
+
+-- Grant user access to all modules and lessons in Course 1
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (3, 1, NULL, NULL);
+
+-- Grant user access to all modules and lessons in Course 2
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (3, 2, NULL, NULL);
+
+-- Grant user 1 access to Module 2, Lesson 3 in Course 1
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (1, 1, 2, 3);
+
+-- Grant user 2 access to Module 1, Lesson 4 in Course 2
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (2, 2, 1, 4);
+
+-- Grant user 3 access to Module 1, Lesson 4 in Course 1
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (3, 1, 1, 4);
+
+-- Grant user 3 access to Module 2, Lesson 6 in Course 2
+INSERT INTO user_access (user_id, course_id, module_id, lesson_id)
+VALUES (3, 2, 2, 6);

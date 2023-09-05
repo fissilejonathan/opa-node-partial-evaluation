@@ -1,0 +1,18 @@
+version: '3'
+services:
+  learning-hub:
+    image: learning-hub
+    ports:
+      - "3000:3000"
+    depends_on:
+      - learning-hub-db
+
+  learning-hub-db:
+    image: learning-hub-db
+    environment:
+      -  MYSQL_ROOT_PASSWORD=root_password
+      -  MYSQL_DATABASE=learning_hub
+      -  MYSQL_USER=user_name
+      -  MYSQL_PASSWORD=user_password
+    ports:
+      - "3306:3306"
