@@ -6,6 +6,7 @@ services:
       - "3000:3000"
     depends_on:
       - learning-hub-db
+      - opa
 
   learning-hub-db:
     image: learning-hub-db
@@ -16,3 +17,8 @@ services:
       -  MYSQL_PASSWORD=user_password
     ports:
       - "3306:3306"
+
+  opa:
+    image: opa
+    ports:
+      - "8181:8181"
